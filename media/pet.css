@@ -1,0 +1,558 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+}
+
+.pet-container {
+    position: relative;
+    width: 200px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pet {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    animation: breathe 3s ease-in-out infinite;
+}
+
+.pet-body {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #e8c4a0 0%, #d4a574 100%);
+    border-radius: 50% 50% 45% 45%;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: background 0.3s, transform 0.3s;
+}
+
+/* Face */
+.pet-face {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 40px;
+}
+
+.eye {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    top: 5px;
+    transition: all 0.3s;
+}
+
+.eye.left { left: 12px; }
+.eye.right { right: 12px; }
+
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    top: 1px;
+    right: 2px;
+}
+
+.mouth {
+    position: absolute;
+    width: 16px;
+    height: 8px;
+    border: 2px solid #333;
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s;
+}
+
+/* Cheeks */
+.cheek {
+    position: absolute;
+    width: 14px;
+    height: 8px;
+    background: rgba(255, 150, 150, 0.4);
+    border-radius: 50%;
+    top: 45px;
+    transition: opacity 0.3s;
+}
+
+.cheek.left { left: 10px; }
+.cheek.right { right: 10px; }
+
+/* Arms */
+.arm {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: linear-gradient(135deg, #e8c4a0 0%, #d4a574 100%);
+    border-radius: 10px;
+    top: 45px;
+    transition: transform 0.3s;
+}
+
+.arm.left {
+    left: -10px;
+    transform-origin: top right;
+    transform: rotate(20deg);
+}
+
+.arm.right {
+    right: -10px;
+    transform-origin: top left;
+    transform: rotate(-20deg);
+}
+
+/* Legs */
+.leg {
+    position: absolute;
+    width: 22px;
+    height: 18px;
+    background: linear-gradient(135deg, #d4a574 0%, #c4956a 100%);
+    border-radius: 0 0 50% 50%;
+    bottom: -10px;
+    transition: transform 0.3s;
+}
+
+.leg.left { left: 20px; }
+.leg.right { right: 20px; }
+
+/* Shadow */
+.shadow {
+    width: 80px;
+    height: 12px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    margin: 18px auto 0;
+    animation: shadowBreath 3s ease-in-out infinite;
+}
+
+/* Status indicator */
+.status-indicator {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #888;
+    background: rgba(255,255,255,0.8);
+    padding: 2px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    transition: all 0.3s;
+}
+
+/* Speech bubble */
+.bubble {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: white;
+    padding: 8px 14px;
+    border-radius: 16px;
+    font-size: 12px;
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid white;
+}
+
+.bubble.show {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+/* Animations */
+@keyframes breathe {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes shadowBreath {
+    0%, 100% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(0.85); opacity: 0.06; }
+}
+
+@keyframes think {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-10px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(-5px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px) rotate(-2deg); }
+    75% { transform: translateX(3px) rotate(2deg); }
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(-20deg); }
+    50% { transform: rotate(-50deg); }
+}
+
+@keyframes waveLeft {
+    0%, 100% { transform: rotate(20deg); }
+    50% { transform: rotate(50deg); }
+}
+
+@keyframes talk {
+    0%, 100% { transform: translateX(-50%) scaleY(1); }
+    50% { transform: translateX(-50%) scaleY(1.3); }
+}
+
+@keyframes shiver {
+    0%, 100% { transform: translate(0, 0); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(1px, 1px); }
+}
+
+/* State: thinking */
+.pet.thinking .pet-body {
+    background: linear-gradient(135deg, #ffd699 0%, #ffb84d 100%);
+}
+
+.pet.thinking {
+    animation: think 1.5s ease-in-out infinite;
+}
+
+.pet.thinking .eye {
+    height: 2px;
+    border-radius: 1px;
+    background: #333;
+    top: 9px;
+}
+
+.pet.thinking .eye::after {
+    display: none;
+}
+
+.pet.thinking .mouth {
+    width: 8px;
+    height: 8px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    background: transparent;
+}
+
+/* State: tool_use */
+.pet.tool_use .pet-body {
+    background: linear-gradient(135deg, #a8d5a2 0%, #6db865 100%);
+    animation: shake 0.3s ease-in-out infinite;
+}
+
+.pet.tool_use .arm.left {
+    animation: waveLeft 0.4s ease-in-out infinite;
+}
+
+.pet.tool_use .arm.right {
+    animation: wave 0.4s ease-in-out infinite;
+}
+
+/* State: responding */
+.pet.responding .pet-body {
+    background: linear-gradient(135deg, #a8c5e9 0%, #6b9bd1 100%);
+}
+
+.pet.responding {
+    animation: breathe 1s ease-in-out infinite;
+}
+
+.pet.responding .mouth {
+    width: 20px;
+    height: 10px;
+    border-radius: 0 0 20px 20px;
+    animation: talk 0.4s ease-in-out infinite;
+}
+
+.pet.responding .arm.left {
+    transform: rotate(40deg);
+}
+
+.pet.responding .arm.right {
+    transform: rotate(-40deg);
+}
+
+/* State: error */
+.pet.error .pet-body {
+    background: linear-gradient(135deg, #e8a0a0 0%, #d46b6b 100%);
+    animation: shiver 0.2s ease-in-out infinite;
+}
+
+.pet.error .eye {
+    background: #c00;
+    width: 12px;
+    height: 4px;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    top: 8px;
+}
+
+.pet.error .eye.right {
+    transform: rotate(-45deg);
+}
+
+.pet.error .eye::after {
+    display: none;
+}
+
+.pet.error .mouth {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #900;
+    background: #600;
+    bottom: 2px;
+}
+
+/* State: coding */
+.pet.coding .pet-body {
+    background: linear-gradient(135deg, #b8a9e8 0%, #8e7cc3 100%);
+}
+
+.pet.coding {
+    animation: breathe 0.8s ease-in-out infinite;
+}
+
+.pet.coding .eye {
+    width: 8px;
+    height: 4px;
+    border-radius: 2px;
+    background: #333;
+    top: 8px;
+}
+
+.pet.coding .eye::after {
+    display: none;
+}
+
+.pet.coding .arm.left {
+    animation: typeLeft 0.2s ease-in-out infinite;
+}
+
+.pet.coding .arm.right {
+    animation: typeRight 0.2s ease-in-out infinite;
+}
+
+.pet.coding .mouth {
+    width: 12px;
+    height: 4px;
+    border-radius: 2px;
+    background: #333;
+    border: none;
+}
+
+/* code symbols floating above head */
+.pet.coding .pet-body::before {
+    content: '{/}';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    color: #6b5b95;
+    opacity: 0;
+    animation: floatCode 1.5s ease-in-out infinite;
+}
+
+/* State: reading */
+.pet.reading .pet-body {
+    background: linear-gradient(135deg, #a0d8e8 0%, #6bb3d4 100%);
+}
+
+.pet.reading {
+    animation: breathe 2s ease-in-out infinite;
+}
+
+.pet.reading .eye {
+    width: 14px;
+    height: 14px;
+    top: 3px;
+}
+
+.pet.reading .eye::after {
+    width: 5px;
+    height: 5px;
+}
+
+.pet.reading .mouth {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    border: none;
+}
+
+.pet.reading .pet-body {
+    transform: rotate(-5deg);
+}
+
+/* State: running */
+.pet.running .pet-body {
+    background: linear-gradient(135deg, #e8d4a0 0%, #d4a86b 100%);
+    animation: runBody 0.4s ease-in-out infinite;
+}
+
+.pet.running .leg.left {
+    animation: runLegLeft 0.4s ease-in-out infinite;
+}
+
+.pet.running .leg.right {
+    animation: runLegRight 0.4s ease-in-out infinite;
+}
+
+.pet.running .arm.left {
+    transform: rotate(60deg);
+    animation: runArmLeft 0.4s ease-in-out infinite;
+}
+
+.pet.running .arm.right {
+    transform: rotate(-60deg);
+    animation: runArmRight 0.4s ease-in-out infinite;
+}
+
+.pet.running .shadow {
+    animation: runShadow 0.4s ease-in-out infinite;
+}
+
+/* State: searching */
+.pet.searching .pet-body {
+    background: linear-gradient(135deg, #d4e8a0 0%, #a8c96b 100%);
+    animation: searchTurn 2s ease-in-out infinite;
+}
+
+.pet.searching .eye {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #333;
+    background: transparent;
+}
+
+.pet.searching .eye::after {
+    display: none;
+}
+
+.pet.searching .eye::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 8px;
+    background: #333;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.pet.searching .mouth {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    background: transparent;
+}
+
+/* New animations */
+@keyframes typeLeft {
+    0%, 100% { transform: rotate(20deg) translateY(0); }
+    50% { transform: rotate(35deg) translateY(-4px); }
+}
+
+@keyframes typeRight {
+    0%, 100% { transform: rotate(-20deg) translateY(0); }
+    50% { transform: rotate(-35deg) translateY(-4px); }
+}
+
+@keyframes floatCode {
+    0% { opacity: 0; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-15px); }
+}
+
+@keyframes runBody {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(-3deg); }
+    75% { transform: translateY(-4px) rotate(3deg); }
+}
+
+@keyframes runLegLeft {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(-15deg); }
+}
+
+@keyframes runLegRight {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(15deg); }
+}
+
+@keyframes runArmLeft {
+    0%, 100% { transform: rotate(60deg); }
+    50% { transform: rotate(40deg); }
+}
+
+@keyframes runArmRight {
+    0%, 100% { transform: rotate(-60deg); }
+    50% { transform: rotate(-40deg); }
+}
+
+@keyframes runShadow {
+    0%, 100% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(0.7); opacity: 0.05; }
+}
+
+@keyframes searchTurn {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+/* Status colors */
+.pet.thinking .status-indicator { color: #e67e22; }
+.pet.tool_use .status-indicator { color: #27ae60; }
+.pet.responding .status-indicator { color: #3498db; }
+.pet.error .status-indicator { color: #e74c3c; }
+.pet.coding .status-indicator { color: #8e7cc3; }
+.pet.reading .status-indicator { color: #6bb3d4; }
+.pet.running .status-indicator { color: #d4a86b; }
+.pet.searching .status-indicator { color: #a8c96b; }

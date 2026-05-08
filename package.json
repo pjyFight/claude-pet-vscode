@@ -1,0 +1,60 @@
+{
+  "name": "claude-pet",
+  "displayName": "Claude Pet",
+  "description": "A cute desktop pet that reacts to Claude's execution state",
+  "version": "0.1.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:claudePetView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "claudePetView",
+          "name": "Claude Pet",
+          "when": "true"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "claudePet.setState",
+        "title": "Set Pet State",
+        "args": [
+          {
+            "type": "string",
+            "description": "State: idle, thinking, tool_use, responding, error"
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Claude Pet",
+      "properties": {
+        "claudePet.port": {
+          "type": "number",
+          "default": 9876,
+          "description": "HTTP server port for receiving state updates from Claude Code hooks"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.0.0"
+  }
+}
