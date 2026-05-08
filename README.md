@@ -56,6 +56,24 @@ npm run compile
 # Press F5 in VS Code to launch Extension Development Host
 ```
 
+**Option C: One-command auto install (Recommended for Claude Code users)**
+
+If you are using this project inside **Claude Code**, simply ask:
+
+```
+install the pet extension
+```
+
+Claude will automatically run the built-in skill to copy, compile, and set up the extension for you.
+
+Or run the cross-platform script manually:
+
+```bash
+node scripts/install.js
+```
+
+Then reload VS Code window.
+
 #### 2. Configure Claude Code Hooks
 
 Add this to your Claude Code settings file:
@@ -272,6 +290,24 @@ npm install
 npm run compile
 # 在 VS Code 中按 F5 启动扩展开发宿主
 ```
+
+**方式三：一键自动安装（Claude Code 用户推荐）**
+
+如果你在使用 **Claude Code**，直接说：
+
+```
+install the pet extension
+```
+
+Claude 会自动调用内置 skill，完成复制、编译和安装。
+
+或者手动运行跨平台脚本：
+
+```bash
+node scripts/install.js
+```
+
+然后重启 VS Code。
 
 #### 2. 配置 Claude Code Hooks
 
